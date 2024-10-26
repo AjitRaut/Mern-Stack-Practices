@@ -21,7 +21,7 @@ const getTodos = async (req, res) => {
     if (!Todos) {
       return res.status(404).json({ msg: "Todods Not Found" });
     }
-    res.status(200).json({ data: Todos });
+    res.status(200).json({ Todos });
   } catch (error) {
     console.log(error);
   }
@@ -50,12 +50,10 @@ const deleteAllTodos = async (req, res) => {
     if (deleteAllTodos.deletedCount === 0) {
       return res.status(404).json({ msg: "Todods Not Found" });
     }
-    res
-      .status(200)
-      .json({
-        msg: "All Todos Dleted",
-        deletCount: deleteAllTodos.deletedCount,
-      });
+    res.status(200).json({
+      msg: "All Todos Dleted",
+      deletCount: deleteAllTodos.deletedCount,
+    });
   } catch (error) {
     res.status(500).json({ msg: "Server Error" });
   }
