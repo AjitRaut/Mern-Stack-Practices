@@ -39,7 +39,26 @@ const deleteTodo = async (req, res) => {
     await Todo.findByIdAndDelete(id);
     res.status(200).json({ msg: "Todo Dlete SuccesFully" });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
+
+const updateTodo = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { task, completed } = req.body;
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      id,
+      { task, completed },
+      { new: true }
+    );
+
+    if (!updatedTodo) {
+      return res.status(404).json({ ms: "Todo not found" });
+    }
+    res.status(200).json({ msg: "Task Update Suusessfully", updatedTodo });
+  } catch (error) {
+    res.status(500).json({ msg: "Server Error" });
   }
 };
 
@@ -51,7 +70,7 @@ const deleteAllTodos = async (req, res) => {
       return res.status(404).json({ msg: "Todods Not Found" });
     }
     res.status(200).json({
-      msg: "All Todos Dleted",
+      msg: "All Todos Deleted",
       deletCount: deleteAllTodos.deletedCount,
     });
   } catch (error) {
@@ -59,4 +78,10 @@ const deleteAllTodos = async (req, res) => {
   }
 };
 
-module.exports = { createTodo, getTodos, deleteTodo, deleteAllTodos };
+module.exports = {
+  createTodo,
+  getTodos,
+  deleteTodo,
+  deleteAllTodos,
+  updateTodo,
+};
