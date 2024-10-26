@@ -22,7 +22,6 @@ const getTodos = async (req, res) => {
       return res.status(404).json({ msg: "Todods Not Found" });
     }
     res.status(200).json({ data: Todos });
-    console.log(Todos);
   } catch (error) {
     console.log(error);
   }
@@ -38,10 +37,28 @@ const deleteTodo = async (req, res) => {
     }
 
     await Todo.findByIdAndDelete(id);
-    res.status(200).json({ msg: deleteTodo });
+    res.status(200).json({ msg: "Todo Dlete SuccesFully" });
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { createTodo, getTodos , deleteTodo };
+const deleteAllTodos = async (req, res) => {
+  try {
+    const deleteAllTodos = await Todo.deleteMany({});
+
+    if (deleteAllTodos.deletedCount === 0) {
+      return res.status(404).json({ msg: "Todods Not Found" });
+    }
+    res
+      .status(200)
+      .json({
+        msg: "All Todos Dleted",
+        deletCount: deleteAllTodos.deletedCount,
+      });
+  } catch (error) {
+    res.status(500).json({ msg: "Server Error" });
+  }
+};
+
+module.exports = { createTodo, getTodos, deleteTodo, deleteAllTodos };
