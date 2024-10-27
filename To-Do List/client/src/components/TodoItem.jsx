@@ -23,7 +23,7 @@ const TodoItem = ({ todo, fetchTodos }) => {
   const deleteTodo = async (id) => {
     try {
       await axios.delete(`${base_Url}/todos/${id}`);
-      toast.success("Task Deleted SuccessFully");
+      toast.success("Task Deleted");
       await fetchTodos();
     } catch (error) {
       toast.error("Something Went Wrong");

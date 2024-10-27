@@ -13,7 +13,7 @@ const TodoForm = ({ fetchTodos }) => {
       const response = await axios.post(`${base_Url}/todos`, {
         task: todo,
       });
-      toast.success("Task Added SuccessFully");
+      toast.success("Task Added");
       await fetchTodos();
       settodo("");
     } catch (error) {
