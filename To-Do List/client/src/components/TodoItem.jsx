@@ -13,7 +13,7 @@ const TodoItem = ({ todo, fetchTodos }) => {
       await axios.patch(`${base_Url}/todos/${id}`, {
         completed: !todo.completed,
       });
-      toast.success("Task Completed");
+      toast.info("Task updated!");
       await fetchTodos();
     } catch (error) {
       toast.error("Something Went Wrong");
@@ -23,7 +23,7 @@ const TodoItem = ({ todo, fetchTodos }) => {
   const deleteTodo = async (id) => {
     try {
       await axios.delete(`${base_Url}/todos/${id}`);
-      toast.success("Task delted SuccessFully");
+      toast.success("Task Deleted SuccessFully");
       await fetchTodos();
     } catch (error) {
       toast.error("Something Went Wrong");
@@ -35,7 +35,7 @@ const TodoItem = ({ todo, fetchTodos }) => {
       await axios.patch(`${base_Url}/todos/${id}`, {
         task: editText,
       });
-      toast.success("Task Updated SuucessFully");
+
       await fetchTodos();
       setIsEditing(false);
     } catch (error) {
