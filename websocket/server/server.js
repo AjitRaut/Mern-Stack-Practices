@@ -23,6 +23,12 @@ app.get("/", (req, res) => {
 // Here made the connection of socket.io
 io.on("connection", (socket) => {
   console.log("connected ", socket.id);
+  socket.on("chat-message", ({message , client}) => {
+    console.log(`Recevied meassage from ${socket.id}` ,message);
+
+    // For sending message to perticular user.
+    socket.to(client).emit("chat-message", message);
+  });
 });
 
 server.listen(port, () => {
